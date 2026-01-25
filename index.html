@@ -50,11 +50,13 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
         
- .hero-svg {
+.hero-svg {
   width: 100%;
-  max-width: 520px;
+  max-width: 520px;          /* keep original cap if you want */
   height: auto;
   display: block;
+  transform: scale(0.7);     /* ← 20% smaller – easy to change later (0.75 = 25% smaller, etc.) */
+  transform-origin: center center;
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
 }
 
@@ -181,27 +183,18 @@
         </button>
     </div>
 
-<!-- Center Piece Placeholder -->
-<div class="min-h-screen flex flex-col items-center justify-center p-6">
-  <div class="flex flex-col items-center text-center gap-6 md:gap-8 lg:gap-10">
+<div class="min-h-screen flex items-center justify-center p-4 sm:p-6">
+  <div class="flex flex-col items-center text-center gap-5 sm:gap-7">
 
-    <!-- SVG / Eye -->
-    <div class="center-visual">
-      <img
-        src="./murtoneye-blackborders.svg"
-        alt="Murton Eye"
-        class="hero-svg w-full max-w-[min(80vw,480px)] md:max-w-[min(85vw,520px)]"
-      />
-    </div>
+    <img
+      src="./murtoneye-blackborders.svg"
+      alt="Murton Eye"
+      class="w-full max-w-[320px] xs:max-w-[380px] sm:max-w-[460px] md:max-w-[520px] drop-shadow-2xl"
+    />
 
-    <!-- Text -->
-    <div>
-      <div class="text-4xl sm:text-5xl font-bold text-gray-800 mb-2 tracking-tight">
-        TEST 03
-      </div>
-      <div class="text-lg sm:text-xl text-gray-600 font-light">
-        TEXTO RANDOM
-      </div>
+    <div class="mt-2 sm:mt-4">
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">TEST 03</h1>
+      <p class="mt-1.5 text-lg sm:text-xl text-gray-600">TEXTO RANDOM</p>
     </div>
 
   </div>
