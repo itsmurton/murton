@@ -50,22 +50,27 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
         
-        .hero-svg {
+ .hero-svg {
   width: 100%;
-  max-width: 520px;   /* tune this */
+  max-width: 520px;
   height: auto;
-
   display: block;
-
-  /* Visual weight */
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
 }
 
-        .center-visual {
+.center-visual {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  /* remove unnecessary extra padding here */
+  pointer-events: auto;
+}
 
+/* Optional: make the whole center area feel more compact/centered */
+.min-h-screen.flex.flex-col {
+  padding-bottom: 8rem; /* gives more breathing room at bottom if needed */
+}
   /* Visual presence */
   filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
 
@@ -179,25 +184,25 @@
         </button>
     </div>
 
-    <!-- Center Piece Placeholder -->
- <div class="min-h-screen flex items-center justify-center p-6">
-  <div class="flex flex-col items-center text-center gap-10">
-    
-    <!-- SVG -->
-    <div class="centerpiece-placeholder p-12 max-w-4xl w-full">
-      <div class="center-visual">
-        <img
-          src="./murtoneye-blackborders.svg"
-          alt="Murton Eye"
-          class="hero-svg"
-        />
-      </div>
+<!-- Center Piece Placeholder -->
+<div class="min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="flex flex-col items-center text-center gap-6 md:gap-8 lg:gap-10">
+
+    <!-- SVG / Eye -->
+    <div class="center-visual">
+      <img
+        src="./murtoneye-blackborders.svg"
+        alt="Murton Eye"
+        class="hero-svg w-full max-w-[min(80vw,480px)] md:max-w-[min(85vw,520px)]"
+      />
     </div>
 
     <!-- Text -->
     <div>
-      <div class="text-4xl font-bold text-gray-800 mb-2">TEST 03</div>
-      <div class="text-lg text-gray-500">
+      <div class="text-4xl sm:text-5xl font-bold text-gray-800 mb-2 tracking-tight">
+        TEST 03
+      </div>
+      <div class="text-lg sm:text-xl text-gray-600 font-light">
         TEXTO RANDOM
       </div>
     </div>
