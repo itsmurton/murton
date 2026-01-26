@@ -23,7 +23,7 @@
         * {
             font-family: 'Inter', sans-serif;
         }
-        
+        /* —-------------------------------------- */
         .language-toggle {
             transition: all 0.2s ease;
         }
@@ -31,7 +31,7 @@
         .language-toggle:hover {
             transform: translateY(-1px);
         }
-        
+        /* —-------------------------------------- */
         .contact-button {
             transition: all 0.2s ease;
         }
@@ -40,7 +40,7 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+        /* —-------------------------------------- */
         .lateral-button {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -49,6 +49,8 @@
             transform: translateX(4px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
+
+/* —-------------------------------------- */
         
 .hero-svg {
   width: auto;
@@ -68,6 +70,7 @@
   pointer-events: auto;
 }
 
+/* —-------------------------------------- */
 
   /* Visual presence */
   filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
@@ -77,21 +80,14 @@
 }
         .center-visual svg {
   width: auto;
-  max-width: 520px;   /* adjust */
+  max-width: 520px;   
   height: auto;
 }
         .centerpiece-placeholder {
   background: transparent;
 }
-
-        .centerpiece-placeholder {   /* Esto no funciona aun */
-            animation: subtlePulse 8s ease-in-out infinite;
-        }
         
-        @keyframes subtlePulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.95; }
-        }
+/* —-------------------------------------- */
         
         .logo {
             transition: all 0.3s ease;
@@ -100,9 +96,13 @@
         .logo:hover {
             opacity: 0.8;
         }
+/* —-------------------------------------- */
     </style>
 </head>
 <body class="min-h-screen bg-light-gray overflow-hidden">
+
+<!--  —--------------------------------------  -->
+
     <!-- Language Toggle - Top Left Corner -->
     <div class="fixed top-6 left-6 z-50">
         <button id="languageToggle" class="language-toggle bg-white rounded-full px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:shadow-md flex items-center gap-2">
@@ -118,6 +118,8 @@
         </div>
     </div>
 
+<!--  —--------------------------------------  -->
+
     <!-- Contact Button - Top Right Corner -->
     <div class="fixed top-6 right-6 z-50">
         <button id="contactButton" class="contact-button bg-black text-white rounded-full px-6 py-3 font-medium shadow-md hover:shadow-lg flex items-center gap-2">
@@ -128,6 +130,8 @@
         </button>
     </div>
 
+<!--  —--------------------------------------  -->
+    
     <!-- Left Side Buttons (2 stacked) -->
     <div class="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col gap-6">
         <button class="lateral-button bg-white rounded-xl px-6 py-4 shadow-md hover:shadow-lg w-48 text-left group">
@@ -154,6 +158,8 @@
             </div>
         </button>
     </div>
+
+    <!--  —------------------ RIGHT SIDE --------------------  -->
 
     <!-- Right Side Buttons (2 stacked) -->
     <div class="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col gap-6">
@@ -182,6 +188,8 @@
         </button>
     </div>
 
+<!--  —----------------- STATUS 0 CENTER PIECE ---------------------  -->
+
 <div class="min-h-screen flex items-center justify-center p-4 sm:p-6">
   <div class="flex flex-col items-center gap-5 sm:gap-7">
 
@@ -196,7 +204,9 @@
 </div>
     
     </div>
-
+    
+<!--  —--------------------------------------  -->
+    
     <!-- Logo - Bottom Right Corner -->
     <div class="fixed bottom-6 right-6 z-50">
         <div class="logo bg-white rounded-2xl px-6 py-4 shadow-md hover:shadow-lg">
@@ -212,6 +222,8 @@
         </div>
     </div>
 
+    <!--  —--------------------------------------  -->
+    
     <!-- Contact Modal (Hidden by default) -->
     <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-6">
         <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl">
@@ -247,6 +259,7 @@
         </div>
     </div>
 
+ <!--  —--------------------------------------  -->
     <script>
         // Define data at the beginning
         const languages = [
