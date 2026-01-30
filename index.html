@@ -24,6 +24,19 @@
 
         * {
             font-family: 'Inter', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
         }
 
         /* —-------------------------------------- */
@@ -36,13 +49,194 @@
         }
 
         /* —-------------------------------------- */
-        .contact-button {
-            transition: all 0.2s ease;
+        /* Creepy Button Styles */
+        .creepy-btn {
+            background-color: black;
+            border-radius: 9999px;
+            color: white;
+            cursor: pointer;
+            min-width: 9em;
+            outline: 0.1875em solid transparent;
+            transition: outline 0.1s linear;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
         }
 
-        .contact-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .creepy-btn__cover,
+        .creepy-btn__eye {
+            position: relative;
+        }
+
+        .creepy-btn,
+        .creepy-btn__pupil {
+            background-color: black;
+        }
+
+        .creepy-btn__cover,
+        .creepy-btn__pupil {
+            border-radius: inherit;
+            display: block;
+        }
+
+        .creepy-btn__cover {
+            background-color: black;
+            box-shadow: 0 0 0 0.125em black inset, 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1.5rem;
+            inset: 0;
+            transform-origin: 1.25em 50%;
+            transition:
+                background-color 0.3s,
+                box-shadow 0.3s,
+                transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: white;
+        }
+
+        .creepy-btn__eye {
+            animation: eye-blink 3s infinite;
+            background-color: white;
+            border-radius: 50%;
+            overflow: hidden;
+            width: 0.75em;
+            height: 0.75em;
+        }
+
+        .creepy-btn__eyes,
+        .creepy-btn__pupil {
+            position: absolute;
+        }
+
+        .creepy-btn__eyes {
+            display: flex;
+            align-items: center;
+            gap: 0.375em;
+            right: 1em;
+            bottom: 0.65em;
+            height: 0.75em;
+        }
+
+        .creepy-btn__pupil {
+            aspect-ratio: 1;
+            top: 50%;
+            left: 50%;
+            width: 0.375em;
+            transform: translate(-50%, -50%);
+        }
+
+        .creepy-btn:focus-visible {
+            outline: 0.1875em solid rgba(100, 100, 100, 0.5);
+        }
+
+        .creepy-btn:hover .creepy-btn__cover {
+            background-color: #1a1a1a;
+            box-shadow: 0 0 0 0.125em black inset, 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .creepy-btn:focus-visible .creepy-btn__cover,
+        .creepy-btn:hover .creepy-btn__cover {
+            transform: rotate(-12deg);
+            transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1.65);
+        }
+
+        .creepy-btn:active .creepy-btn__cover {
+            transform: rotate(0);
+            transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        @keyframes eye-blink {
+
+            0%,
+            92%,
+            100% {
+                animation-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
+                height: 0.75em;
+            }
+
+            96% {
+                animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+                height: 0;
+            }
+        }
+
+        /* —-------------------------------------- */
+
+        /* 3D Spinning Text Effect */
+        :root {
+            --spin-radius: 280px;
+            --spin-radius-text: calc(var(--spin-radius) + 30px);
+            --spin-duration: 25s;
+            --speed-y-mod: -3;
+            --speed-x-mod: 1;
+            --speed-z-mod: 0;
+            --spin-perspective: 1000px;
+        }
+
+        .spinning-text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            perspective: var(--spin-perspective);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .spinning-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+            animation: spin3d var(--spin-duration) linear infinite;
+            margin: 0;
+            padding: 0;
+            font-weight: 300;
+            font-size: 2rem;
+            color: rgba(60, 60, 60, 0.9);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .spinning-text span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%, -50%, 0) rotateY(calc(var(--i) * 360deg)) translateZ(var(--spin-radius-text));
+            backface-visibility: visible;
+            white-space: nowrap;
+        }
+
+        @keyframes spin3d {
+            0% {
+                transform: translate(-50%, -50%) rotateX(0deg) rotateZ(0deg) rotateY(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotateX(calc(360deg * var(--speed-x-mod))) rotateZ(calc(360deg * var(--speed-z-mod))) rotateY(calc(360deg * var(--speed-y-mod)));
+            }
+        }
+
+        /* Orbit blur circle behind text */
+        .orbit-blur {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: calc(2 * var(--spin-radius));
+            height: calc(2 * var(--spin-radius));
+            transform: translate(-50%, -50%) translateZ(0);
+            border-radius: 50%;
+            backdrop-filter: blur(4px);
+            background: radial-gradient(rgba(245, 245, 245, 0.8) 20%, rgba(245, 245, 245, 0));
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* —-------------------------------------- */
@@ -63,7 +257,6 @@
             height: auto;
             display: block;
             transform-origin: center center;
-            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
         }
 
         .center-visual {
@@ -77,13 +270,6 @@
 
         /* —-------------------------------------- */
 
-        /* Visual presence */
-        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
-
-        /* Safety */
-        pointer-events: auto;
-        }
-
         .center-visual svg {
             width: auto;
             max-width: 520px;
@@ -96,111 +282,13 @@
 
         /* —-------------------------------------- */
 
-        /* Centerpiece Floating Animation */
-        .hero-centerpiece {
-            animation: floatBreathing 6s ease-in-out infinite, subtleTwist 8s ease-in-out infinite;
-            transform-origin: center center;
-            transition: animation-duration 0.5s ease;
-        }
-
-        .hero-centerpiece.slow-motion {
-            animation: floatBreathing 12s ease-in-out infinite, subtleTwist 16s ease-in-out infinite;
-        }
-
-        @keyframes floatBreathing {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-12px);
-            }
-        }
-
-        @keyframes subtleTwist {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotateY(0deg);
-            }
-
-            25% {
-                transform: translateY(-6px) rotateY(3deg);
-            }
-
-            50% {
-                transform: translateY(-12px) rotateY(0deg);
-            }
-
-            75% {
-                transform: translateY(-6px) rotateY(-3deg);
-            }
-        }
-
-        /* Combined animation for proper transform stacking */
+        /* Centerpiece Floating Animation with rotation */
         .hero-centerpiece {
             animation: combinedFloat 8s ease-in-out infinite;
-        }
-
-        /* Centerpiece wrapper for aura effect */
-        .centerpiece-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Dark ominous aura effect */
-        .centerpiece-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 130%;
-            height: 130%;
-            background: radial-gradient(ellipse at center,
-                    rgba(0, 0, 0, 0.35) 0%,
-                    rgba(0, 0, 0, 0.2) 25%,
-                    rgba(0, 0, 0, 0.08) 50%,
-                    transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-            pointer-events: none;
-            animation: auraPulse 4s ease-in-out infinite;
-        }
-
-        .hero-centerpiece::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 140%;
-            height: 140%;
-            background: radial-gradient(ellipse at center,
-                    rgba(0, 0, 0, 0.25) 0%,
-                    rgba(0, 0, 0, 0.15) 30%,
-                    rgba(0, 0, 0, 0.05) 50%,
-                    transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-            pointer-events: none;
-            animation: auraPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes auraPulse {
-
-            0%,
-            100% {
-                opacity: 0.8;
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.05);
-            }
+            transform-origin: center center;
+            transition: animation-duration 0.5s ease;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .hero-centerpiece.slow-motion {
@@ -211,19 +299,259 @@
 
             0%,
             100% {
-                transform: translateY(0px) rotateY(0deg);
+                transform: translateY(0px) rotate(0.5deg);
             }
 
             25% {
-                transform: translateY(-6px) rotateY(2deg);
+                transform: translateY(-11px) rotate(0deg);
             }
 
             50% {
-                transform: translateY(-12px) rotateY(0deg);
+                transform: translateY(-22px) rotate(-0.5deg);
             }
 
             75% {
-                transform: translateY(-6px) rotateY(-2deg);
+                transform: translateY(-11px) rotate(0deg);
+            }
+        }
+
+        /* Centerpiece wrapper for aura effect */
+        .centerpiece-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+
+
+        /* Smoke aura container - behind the centerpiece */
+        .wave-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180%;
+            height: 180%;
+            pointer-events: none;
+            z-index: -1;
+            will-change: transform;
+        }
+
+        /* Smoke wisp - organic shapeless form */
+        .smoke-wisp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            filter: blur(24px);
+            opacity: 0;
+            will-change: opacity, transform;
+        }
+
+        /* Smoke wisps - 4 layers with linear gradients for seamless blending */
+        /* Layer 1: innermost - DARKEST */
+        .smoke-wisp-1 {
+            width: 50%;
+            height: 60%;
+            background: linear-gradient(to bottom,
+                    rgba(10, 10, 10, 0) 0%,
+                    rgba(10, 10, 10, 0.85) 25%,
+                    rgba(15, 15, 15, 0.9) 50%,
+                    rgba(10, 10, 10, 0.68) 75%,
+                    rgba(10, 10, 10, 0) 100%);
+            animation: smokeFloat1 8s ease-in-out infinite;
+        }
+
+
+        /* Layer 2: outer - MEDIUM GRAY */
+        .smoke-wisp-2 {
+            width: 75%;
+            height: 90%;
+            background: linear-gradient(to bottom,
+                    rgba(65, 65, 65, 0) 0%,
+                    rgba(65, 65, 65, 0.55) 15%,
+                    rgba(75, 75, 75, 0.6) 50%,
+                    rgba(65, 65, 65, 0.55) 85%,
+                    rgba(65, 65, 65, 0) 100%);
+            animation: smokeFloat3 9s ease-in-out infinite 2s;
+        }
+
+        /* Layer 3: outermost - LIGHT GRAY */
+        .smoke-wisp-3 {
+            width: 105%;
+            height: 106%;
+            background: linear-gradient(to bottom,
+                    rgba(95, 95, 95, 0) 0%,
+                    rgba(95, 95, 95, 0.4) 10%,
+                    rgba(110, 110, 110, 0.1) 10%,
+                    rgba(95, 95, 95, 0.15) 90%,
+                    rgba(95, 95, 95, 0) 100%);
+            animation: smokeFloat4 11s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes smokeFloat1 {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+                border-radius: 48% 52% 50% 50% / 50% 50% 52% 48%;
+            }
+
+            25% {
+                opacity: 0.9;
+                transform: translate(-48%, -52%) scale(1.2);
+                border-radius: 52% 48% 50% 50% / 48% 52% 50% 50%;
+            }
+
+            50% {
+                opacity: 0.75;
+                transform: translate(-52%, -48%) scale(1.1);
+                border-radius: 50% 50% 52% 48% / 50% 50% 48% 52%;
+            }
+
+            75% {
+                opacity: 0.95;
+                transform: translate(-50%, -50%) scale(1.15);
+                border-radius: 50% 50% 48% 52% / 52% 48% 50% 50%;
+            }
+        }
+
+        @keyframes smokeFloat2 {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: translate(-50%, -50%) scale(1);
+                border-radius: 52% 48% 50% 50% / 50% 50% 48% 52%;
+            }
+
+            33% {
+                opacity: 0.75;
+                transform: translate(-52%, -48%) scale(1.22);
+                border-radius: 48% 52% 50% 50% / 52% 48% 50% 50%;
+            }
+
+            66% {
+                opacity: 0.55;
+                transform: translate(-48%, -52%) scale(1.12);
+                border-radius: 50% 50% 52% 48% / 48% 52% 50% 50%;
+            }
+        }
+
+        @keyframes smokeFloat3 {
+
+            0%,
+            100% {
+                opacity: 0.55;
+                transform: translate(-50%, -50%) scale(1);
+                border-radius: 50% 50% 48% 52% / 52% 48% 50% 50%;
+            }
+
+            50% {
+                opacity: 0.85;
+                transform: translate(-50%, -50%) scale(1.25);
+                border-radius: 50% 50% 52% 48% / 48% 52% 50% 50%;
+            }
+        }
+
+        @keyframes smokeFloat4 {
+
+            0%,
+            100% {
+                opacity: 0.35;
+                transform: translate(-50%, -50%) scale(1);
+                border-radius: 52% 48% 50% 50% / 50% 50% 52% 48%;
+            }
+
+            40% {
+                opacity: 0.65;
+                transform: translate(-48%, -50%) scale(1.2);
+                border-radius: 48% 52% 50% 50% / 50% 50% 48% 52%;
+            }
+
+            80% {
+                opacity: 0.5;
+                transform: translate(-52%, -50%) scale(1.1);
+                border-radius: 50% 50% 48% 52% / 52% 48% 50% 50%;
+            }
+        }
+
+        @keyframes smokeFloat5 {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                border-radius: 45% 55% 50% 50% / 50% 50% 55% 45%;
+            }
+
+            30% {
+                opacity: 0.78;
+                transform: translate(-47%, -53%) scale(1.14) rotate(-12deg);
+                border-radius: 55% 45% 45% 55% / 55% 45% 50% 50%;
+            }
+
+            70% {
+                opacity: 0.62;
+                transform: translate(-54%, -46%) scale(1.08) rotate(10deg);
+                border-radius: 50% 50% 55% 45% / 45% 55% 45% 55%;
+            }
+        }
+
+        @keyframes smokeFloat6 {
+
+            0%,
+            100% {
+                opacity: 0.35;
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                border-radius: 52% 48% 48% 52% / 48% 52% 52% 48%;
+            }
+
+            25% {
+                opacity: 0.55;
+                transform: translate(-46%, -54%) scale(1.1) rotate(14deg);
+                border-radius: 48% 52% 55% 45% / 52% 48% 48% 52%;
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: translate(-54%, -46%) scale(1.16) rotate(-16deg);
+                border-radius: 55% 45% 48% 52% / 48% 52% 55% 45%;
+            }
+
+            75% {
+                opacity: 0.55;
+                transform: translate(-50%, -50%) scale(1.04) rotate(6deg);
+                border-radius: 45% 55% 52% 48% / 55% 45% 48% 52%;
+            }
+        }
+
+        @keyframes ominousWave {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: translate(-50%, -50%) scale(1);
+                filter: blur(0px);
+            }
+
+            20% {
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(1.05);
+                filter: blur(0px);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+                filter: blur(1px);
+            }
+
+            80% {
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(1.05);
+                filter: blur(0px);
             }
         }
 
@@ -245,7 +573,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 97%;
             overflow: hidden;
             pointer-events: none;
             z-index: 1;
@@ -332,24 +660,33 @@
 
     <!--  —--------------------------------------  -->
 
-    <!-- Contact Button - Top Right Corner -->
+    <!-- Contact Button - Top Right Corner (Creepy Eyes) -->
     <div class="fixed top-6 right-6 z-50">
-        <button id="contactButton"
-            class="contact-button bg-black text-white rounded-full px-6 py-3 font-medium shadow-md hover:shadow-lg flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                </path>
-            </svg>
-            Contact
+        <button id="contactButton" class="creepy-btn" type="button">
+            <span class="creepy-btn__eyes" id="creepyEyes">
+                <span class="creepy-btn__eye">
+                    <span class="creepy-btn__pupil" id="pupil1"></span>
+                </span>
+                <span class="creepy-btn__eye">
+                    <span class="creepy-btn__pupil" id="pupil2"></span>
+                </span>
+            </span>
+            <span class="creepy-btn__cover">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                </svg>
+                Contact
+            </span>
         </button>
     </div>
 
     <!--  —--------------------------------------  -->
 
     <!-- Left Side Buttons (2 stacked) -->
-    <div class="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col gap-6">
+    <div class="fixed left-6 inset-y-0 z-40 flex flex-col items-start justify-center gap-6">
         <button class="lateral-button bg-white rounded-xl px-6 py-4 shadow-md hover:shadow-lg w-48 text-left group">
             <div class="flex items-center justify-between">
                 <div>
@@ -380,7 +717,7 @@
     <!--  —------------------ RIGHT SIDE --------------------  -->
 
     <!-- Right Side Buttons (2 stacked) -->
-    <div class="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col gap-6">
+    <div class="fixed right-6 inset-y-0 z-40 flex flex-col items-end justify-center gap-6">
         <button class="lateral-button bg-white rounded-xl px-6 py-4 shadow-md hover:shadow-lg w-48 text-left group">
             <div class="flex items-center justify-between">
                 <div>
@@ -414,8 +751,24 @@
         <div class="flex flex-col items-center gap-5 sm:gap-7">
 
             <div class="centerpiece-wrapper">
+                <!-- 3D Spinning Text -->
+                <div class="spinning-text-container">
+                    <div class="orbit-blur"></div>
+                    <h1 class="spinning-text" id="spinningText" data-splittext>Murton Murton</h1>
+                </div>
+
+                <div class="wave-container">
+
+                    <!--  —----------------- Center piece smokeBG ---------------------  -->
+
+
+                    <div class="smoke-wisp smoke-wisp-1"></div>
+                    <div class="smoke-wisp smoke-wisp-2"></div>
+                    <div class="smoke-wisp smoke-wisp-3"></div>
+                </div>
                 <img id="heroCenterpiece" src="./murtoneye-blackborders.svg" alt="Murton Eye"
-                    class="hero-centerpiece w-full max-w-[320px] xs:max-w-[380px] sm:max-w-[460px] md:max-w-[520px]" />
+                    class="hero-centerpiece w-full max-w-[320px] xs:max-w-[380px] sm:max-w-[460px] md:max-w-[520px]"
+                    draggable="false" oncontextmenu="return false" />
             </div>
         </div>
 
@@ -532,6 +885,22 @@
                 }
             })();
 
+        // ============================================
+        // 3D Spinning Text - Split Text into Characters
+        // ============================================
+        (function () {
+            const spinningText = document.getElementById('spinningText');
+            if (spinningText) {
+                const text = spinningText.textContent;
+                const letters = text.split('');
+                spinningText.innerHTML = letters
+                    .map((char, i) =>
+                        `<span style="--i: ${i / (letters.length + 1)};">${char === ' ' ? '&nbsp;' : char}</span>`
+                    )
+                    .join('');
+            }
+        })();
+
         // Define data at the beginning
         const languages = [
             { "code": "EN", "name": "English" },
@@ -577,6 +946,54 @@
         const contactModal = document.getElementById("contactModal");
         const closeModal = document.getElementById("closeModal");
         const contactForm = document.getElementById("contactForm");
+
+        // ============================================
+        // Creepy Button - Eye Following Functionality
+        // ============================================
+        (function () {
+            const creepyBtn = document.querySelector('.creepy-btn');
+            const creepyEyes = document.getElementById('creepyEyes');
+            const pupil1 = document.getElementById('pupil1');
+            const pupil2 = document.getElementById('pupil2');
+
+            if (creepyBtn && creepyEyes && pupil1 && pupil2) {
+                function updateEyes(e) {
+                    const userEvent = e.touches ? e.touches[0] : e;
+
+                    // Get the center of the eyes container and cursor location
+                    const eyesRect = creepyEyes.getBoundingClientRect();
+                    const eyesCenter = {
+                        x: eyesRect.left + eyesRect.width / 2,
+                        y: eyesRect.top + eyesRect.height / 2
+                    };
+                    const cursor = {
+                        x: userEvent.clientX,
+                        y: userEvent.clientY
+                    };
+
+                    // Calculate the eye angle
+                    const dx = cursor.x - eyesCenter.x;
+                    const dy = cursor.y - eyesCenter.y;
+                    const angle = Math.atan2(-dy, dx) + Math.PI / 2;
+
+                    // Then the pupil distance from the eye center
+                    const visionRangeX = 180;
+                    const visionRangeY = 75;
+                    const distance = Math.hypot(dx, dy);
+                    const x = Math.sin(angle) * distance / visionRangeX;
+                    const y = Math.cos(angle) * distance / visionRangeY;
+
+                    const translateX = `${-50 + x * 50}%`;
+                    const translateY = `${-50 + y * 50}%`;
+
+                    pupil1.style.transform = `translate(${translateX}, ${translateY})`;
+                    pupil2.style.transform = `translate(${translateX}, ${translateY})`;
+                }
+
+                creepyBtn.addEventListener('mousemove', updateEyes);
+                creepyBtn.addEventListener('touchmove', updateEyes);
+            }
+        })();
 
         // Language Toggle Functionality
         languageToggle.addEventListener("click", function (e) {
@@ -754,13 +1171,24 @@
 
         // Centerpiece slow-motion on extended hover
         const heroCenterpiece = document.getElementById('heroCenterpiece');
+        const centerpieceWrapper = document.querySelector('.centerpiece-wrapper');
+        const energyWaves = document.querySelectorAll('.energy-wave');
         let hoverTimeout = null;
+        let particleInterval = null;
 
-        if (heroCenterpiece) {
+        if (heroCenterpiece && centerpieceWrapper) {
             heroCenterpiece.addEventListener('mouseenter', function () {
                 // Start timer for 2 seconds
                 hoverTimeout = setTimeout(() => {
                     heroCenterpiece.classList.add('slow-motion');
+                    // Add intense glow effect
+                    centerpieceWrapper.style.filter = 'drop-shadow(0 0 30px rgba(138, 43, 226, 0.8))';
+                    // Speed up waves on hover
+                    energyWaves.forEach((wave, index) => {
+                        wave.style.animationDuration = '1.2s';
+                    });
+                    // Create energy particles
+                    createEnergyParticles();
                 }, 2000);
             });
 
@@ -771,8 +1199,66 @@
                     hoverTimeout = null;
                 }
                 heroCenterpiece.classList.remove('slow-motion');
+                // Remove intense glow
+                centerpieceWrapper.style.filter = '';
+                // Reset wave speeds
+                energyWaves.forEach((wave, index) => {
+                    wave.style.animationDuration = '2.5s';
+                });
+                // Clear particles
+                if (particleInterval) {
+                    clearInterval(particleInterval);
+                    particleInterval = null;
+                }
+                // Remove existing particles
+                document.querySelectorAll('.energy-particle').forEach(p => p.remove());
             });
         }
+
+        // Create energy particles on hover
+        function createEnergyParticles() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            particleInterval = setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'energy-particle';
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(138, 43, 226, 0.8);
+                    border-radius: 50%;
+                    box-shadow: 0 0 8px rgba(138, 43, 226, 0.9);
+                    left: ${centerX + (Math.random() - 0.5) * 100}px;
+                    top: ${centerY + (Math.random() - 0.5) * 100}px;
+                    pointer-events: none;
+                    z-index: 100;
+                    animation: particleFloat 2s ease-out forwards;
+                `;
+
+                document.body.appendChild(particle);
+
+                // Remove particle after animation
+                setTimeout(() => particle.remove(), 2000);
+            }, 100);
+        }
+
+        // Add particle animation to styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFloat {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 200}px) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
         // ============================================
         // Subtle Ascending Particle Background
